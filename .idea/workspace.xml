@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6751429-214f-4805-ad69-b441e6edfd0c" name="Changes" comment="add functions to read CSV">
-      <change afterPath="$PROJECT_DIR$/templates/filter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
+    <list default="true" id="f6751429-214f-4805-ad69-b441e6edfd0c" name="Changes" comment="implement function: query counties with highest score of attributes">
+      <change afterPath="$PROJECT_DIR$/templates/project.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/djangoProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +24,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/djangoProject/utils/county.py" root0="FORCE_HIGHLIGHTING" />
@@ -133,7 +133,7 @@
       <workItem from="1669776790801" duration="1013000" />
       <workItem from="1669823891522" duration="1755000" />
       <workItem from="1669826937406" duration="803000" />
-      <workItem from="1669827821678" duration="5192000" />
+      <workItem from="1669827821678" duration="5491000" />
     </task>
     <task id="LOCAL-00001" summary="manage git repo">
       <created>1669602204276</created>
@@ -149,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669824879087</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="implement function: query counties with highest score of attributes">
+      <created>1669840980087</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669840980087</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +176,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="manage git repo" />
     <MESSAGE value="add functions to read CSV" />
-    <option name="LAST_COMMIT_MESSAGE" value="add functions to read CSV" />
+    <MESSAGE value="implement function: query counties with highest score of attributes" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement function: query counties with highest score of attributes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

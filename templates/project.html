@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <style></style>
+</head>
+
+<body>
+  <!-- <button id="Refresh" type="button">Search</button> -->
+
+  <div class="container">
+    Air Quality<input type="checkbox" class="similarity" value="Air Quality" />
+    Population<input type="checkbox" class="similarity" value="Population" />
+    Education<input type="checkbox" class="similarity" value="Education" />
+    <button onclick="clicked()">Search</button>
+  </div>
+
+  <script type="text/javascript" src="../lib/d3.v5.min.js"></script>
+  <script>
+    function clicked() {
+      var checks = document.getElementsByClassName("similarity");
+      var str = "";
+      for (i = 0; i < 3; i++) {
+        if (checks[i].checked == true) {
+          str += checks[i].value + "  ";
+        }
+      }
+      alert(str);
+    }
+  </script>
+</body>
