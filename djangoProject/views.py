@@ -9,4 +9,4 @@ def runoob(request):
     # county.name = "County2"
     # county.GDP = 100
     # county.save()
-    return render(request, 'test.html', {'showCounties': Test.objects.get(id=2)})
+    return render(request, 'project.html', {'showCounties': Test.objects.get(id=2)})
