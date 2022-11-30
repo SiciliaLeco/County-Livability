@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>County Filter</title>
+</head>
+<body>
+<form method="get" action="{%  url 'getReport' %}">
+    <fieldset>
+        <p>Please select the attribute you concern.</p>
+        <div>
+            <input type="checkbox" id="crime_rate" name="interest" value="crime_rate"/>
+            <label for="coding">Crime Rate</label>
+        </div>
+        <div>
+            <input type="checkbox" id="population" name="interest1" value="population"/>
+            <label for="music">Population</label>
+        </div>
+        <div>
+            <input type="checkbox" id="averageIncome" name="interest2" value="averageIncome"/>
+            <label for="music">Average Income</label>
+        </div>
+        <div>
+            <input type="checkbox" id="povertyRate" name="interest3" value="povertyRate"/>
+            <label for="music">Poverty Rate</label>
+        </div>
+        <div>
+            <input type="checkbox" id="unemploymentRate" name="interest4" value="unemploymentRate"/>
+            <label for="music">Unemployment Rate</label>
+        </div>
+        <div>
+            <input type="checkbox" id="livingWage" name="interest5" value="livingWage"/>
+            <label for="music">Living Wage</label>
+        </div>
+        <div>
+            <input type="checkbox" id="foodCost" name="interest6" value="foodCost"/>
+            <label for="music">Food Cost</label>
+        </div>
+        <div>
+            <input type="checkbox" id="medicalCost" name="interest7" value="medicalCost"/>
+            <label for="music">Medical Cost</label>
+        </div>
+        <div>
+            <input type="checkbox" id="housingCost" name="interest8" value="housingCost"/>
+            <label for="music">Housing Cost</label>
+        </div>
+        <div>
+            <input type="checkbox" id="taxCost" name="interest9" value="taxCost"/>
+            <label for="music">Tax Cost</label>
+        </div>
+        <div>
+            How many counties do you wish to return?
+            <input type="text" name="returnNumber" placeholder="default 10">
+        </div>
+        <div>
+          <button type="submit">Submit query</button>
+        </div>
+    </fieldset>
+</form>
+{% for county in counties %}
+    <p>County Name: {{ county.countyName}}</p>
+{% endfor %}
+</body>
+</html>

@@ -19,5 +19,7 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("test/", views.runoob)
+    path("test/", views.runoob),
+    path("filter/", views.filter),
+    path("result/", views.getSortedResult, name="getReport")
 ]
