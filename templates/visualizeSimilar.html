@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var data = Object();
+    data = {};
+    {#data = {{ resultDict }};#}
+    {% for name, distance in resultDict.items %}
+        {#console.log(" {{ name }} ");#}
+        data[" {{ name }} "] = {{ distance }}
+    {% endfor %}
+    var target = "{{ center }}";
+    console.log(data);
+    console.log(target);
+</script>
+</body>
+
+</html>
