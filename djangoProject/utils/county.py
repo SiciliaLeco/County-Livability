@@ -1,7 +1,10 @@
 import csv
 from typing import List, Tuple
 from operator import attrgetter
-
+import numpy as np
+from sklearn.cluster import KMeans
+import scipy.stats as st
+from sklearn.preprocessing import normalize
 
 class county(object):
     def __init__(self, info: dict):
@@ -32,13 +35,45 @@ class county(object):
         return self.countyName
 
 
-def sortCounty(countyList: List[county], returnNumber:int, *attributes):
+def sortCounty(countyList: List[county], returnNumber: int, *attributes):
     print(attributes)
     countyList.sort(key=attrgetter(*attributes), reverse=True)
     return countyList[:returnNumber]
 
 
+def clusterCounty(countyList: List[county], targetCounty: int, returnNumber:int, *attributes):
+    def distance(x, y):
+        return np.linalg.norm(x-y)
+
+    X = []
+    for county in countyList:
+        res = []
+        for attr in attributes:
+            res.append(float(getattr(county, attr)))
+        X.append(res)
+    X = np.array(X)
+    X = normalize(X.T).T
+    res = KMeans(n_clusters=60, random_state=0).fit_predict(X)
+    targetLabel = res[targetCounty]
+    result = list()
+    dists = []
+    for i in range(len(countyList)):
+        if res[i] == targetLabel and i != targetCounty:
+            dists.append(distance(X[i], X[targetCounty]))
+            result.append([countyList[i]])
+            # result.append([countyList[i], distance(X[i], X[targetCounty])])
+    dists = normalize(np.array([dists]))
+    result = [result[i]+[dists[0][i]*100] for i in range(len(result))]
+    result = sorted(result, key=lambda x:x[1], reverse=False)
+    return result[:returnNumber]
+
+
 def readFile(path: str = "DATA/dataset_livability.csv") -> List[county]:
+    """
+    the default path of this function is for pyhton files outside this directory
+    :param path:
+    :return:
+    """
     countyList = []
     with open(path, 'r') as f:
         reader = csv.DictReader(f)
@@ -50,4 +85,7 @@ def readFile(path: str = "DATA/dataset_livability.csv") -> List[county]:
 if __name__ == "__main__":
     file = "../../DATA/dataset_livability.csv"
     countyList = readFile(file)
-    print()
+    result = clusterCounty(countyList, 1, "crime_rate", "diversityIndex")
+    # print()
+    for r in result:
+        print(r)

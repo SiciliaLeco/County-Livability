@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Test
-from .utils.county import sortCounty, readFile
+from .utils.county import sortCounty, readFile, clusterCounty
+
+countyList = readFile()
 
 
 def runoob(request):
@@ -22,12 +24,44 @@ def getSortedResult(request):
     returnNumber = 10  # default
     print(res)
     if res['returnNumber']:
-        returnNumber = res['returnNumber']
+        returnNumber = int(res['returnNumber'])
     attributes = []
     for k, v in res.items():
         if k != "returnNumber":
             attributes.append(v)
     print(returnNumber)
-    countyList = readFile()
-    topKcounties = sortCounty(countyList, returnNumber, *attributes)
-    return render(request, "filter.html", {'counties':topKcounties})
+
+    topKCounties = sortCounty(countyList, returnNumber, *attributes)
+    return render(request, "filter.html", {'counties': topKCounties})
+
+
+def findSimilar(request):
+    counties = dict()
+    i = 0
+    for county in countyList:
+        counties[county.countyName] = i
+        i += 1
+    return render(request, "findSimilar.html", {'counties': counties})
+
+
+def getSimilarResult(request):
+    res = request.GET
+    print(res)
+    attributes = []
+    returnNumber = 10  # default
+    print(res)
+    if res['returnNumber']:
+        returnNumber = int(res['returnNumber'])
+    for k, v in res.items():
+        if k != "returnNumber" and k != "selectCounty":
+            attributes.append(v)
+    target = int(res['selectCounty'])
+    res = clusterCounty(countyList, target, returnNumber, *attributes)
+    print(res)
+    resultDict = dict()
+    for r in res:
+        resultDict[r[0].countyName] = r[1]
+        # resultDict.append([r[0].countyName])
+    d = {'resultDict': resultDict, 'center': countyList[target].countyName}
+    print(d)
+    return render(request, "visualizeSimilar.html", d)

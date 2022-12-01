@@ -21,5 +21,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("test/", views.runoob),
     path("filter/", views.filter),
-    path("result/", views.getSortedResult, name="getReport")
+    path("result/", views.getSortedResult, name="getReport"),
+    path("similar/", views.findSimilar),
+    path("similarResult/", views.getSimilarResult, name="getSimilar"),
 ]
