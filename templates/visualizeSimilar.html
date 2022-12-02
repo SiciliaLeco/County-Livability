@@ -1,22 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<script>
-    var data = Object();
-    data = {};
-    {#data = {{ resultDict }};#}
-    {% for name, distance in resultDict.items %}
-        {#console.log(" {{ name }} ");#}
-        data[" {{ name }} "] = {{ distance }}
-    {% endfor %}
-    var target = "{{ center }}";
-    console.log(data);
-    console.log(target);
-</script>
-</body>
+  </head>
+  <body>
+    <script src="http://d3js.org/d3.v5.js"></script>
+    <script>
+      var center = "{{ center }}";
+      var nodes = {};
+      var links = [];
+      nodes[center] = {name:center}
 
+      {% for name, distance in resultDict.items %}
+        {nodes["{{name}}"] = {name:"{{name}}"}}
+        {links.push({source:{name:center}, target:{name:"{{name}}"}, value:{{distance}}})}
+      {% endfor %}
+
+      var width = 1200,
+          height = 700;
+      console.log(links)
+      console.log(nodes)
+
+      var force = d3.forceSimulation()
+          .nodes(d3.values(nodes))
+          .force("link", d3.forceLink(links).distance(100))
+          .force('center', d3.forceCenter(width / 2, height / 2))
+          .force("x", d3.forceX())
+          .force("y", d3.forceY())
+          .force("charge", d3.forceManyBody().strength(-250))
+          .alphaTarget(1)
+          .on("tick", tick);
+
+      var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+      var path = svg.append("g")
+            .selectAll("path")
+            .data(links)
+            .enter()
+            .append("path")
+            // .attr("class", function(d) { return "link " + d.type; })
+            // .style('stroke', (d) => (d.value === 0) ? "gray":"green")
+            // .style('stroke-width', (d) => (d.value === 0) ? "5px":"3px")
+            // .style('stroke-dasharray', (d) => (d.value === 0) ? 'none':"2")
+
+      var node = svg.selectAll(".node")
+            .data(force.nodes())
+            .enter()
+            .append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended))
+                .on("dblclick", releasenode);
+
+      var colorScale = d3.scaleSequential()
+            .interpolator(d3.interpolateBlues)
+            .domain([0,10]);
+
+
+      node.append("circle")
+          .attr("id", function(d){
+            return (d.name);
+          })
+          .attr("r", (d) => {
+            d.weight = links.filter((l) => l.source.name == d.name || l.target.name == d.name).length
+          return d.weight *0.5 + 20}
+          )
+          .style("fill", d =>colorScale(d.weight *0.8))
+
+      node.append("text")
+          .style("font-weight", "bold")
+          .text(d => d.name)
+          .style("pointer-events", "none")
+
+      function tick() {
+          path.attr("d", function(d) {
+              var dx = d.target.x - d.source.x,
+                  dy = d.target.y - d.source.y,
+                  dr = Math.sqrt(dx * dx + dy * dy);
+                  // dv = d.value
+              return "M" +
+                  d.source.x + "," +
+                  d.source.y + "A" +
+                  dr + "," + dr + " 0 0,1 " +
+                  d.target.x + "," +
+                  d.target.y;
+
+          });
+
+          node.attr("transform", d => "translate(" + d.x + "," + d.y + ")" );
+      };
+
+
+      function dragstarted(d) {
+          if (!d3.event.active) force.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+          d.fixed = true
+      };
+
+      function dragged(d) {
+          d.fx = d3.event.x;
+          d.fy = d3.event.y;
+      };
+
+      function dragended(d) {
+          if (!d3.event.active) force.alphaTarget(0);
+          if (d.fixed == true) {
+              d.fx = d.x;
+              d.fy = d.y;
+          }
+          else {
+              d.fx = null;
+              d.fy = null;
+          }
+          d3.select(this)
+              .select("circle")
+              .style("fill", "#e34a33")
+      };
+
+      function releasenode(d) {
+        d.fx = null;
+        d.fy = null
+        d.fixed = false
+        d3.select(this)
+          .select("circle")
+          .style("fill", d => colorScale(d.weight))
+      }
+    </script>
+  </body>
 </html>
