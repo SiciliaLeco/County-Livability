@@ -65,3 +65,19 @@ def getSimilarResult(request):
     d = {'resultDict': resultDict, 'center': countyList[target].countyName}
     print(d)
     return render(request, "visualizeSimilar.html", d)
+
+
+def search(request):
+    counties = dict()
+    i = 0
+    for county in countyList:
+        counties[county.countyName] = i
+        i += 1
+    return render(request, 'welcome.html', {'counties': counties})
+
+
+def display(request):
+    res = request.GET
+    target = int(res['selectCounty'])
+    county = countyList[target]
+    return render(request, 'countyTemplate.html', {'county': county})

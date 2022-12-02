@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ county.countyName }}</title>
+</head>
+<body>
+County Name: {{ county.countyName }}
+<br>
+State: {{ county.state }}
+<br>
+Crime Rate (per 100000): {{ county.crime_rate }}
+<br>
+Population: {{ county.population }}
+<br>
+Live Expectancy: {{ county.lifeExpectancy }}
+<br>
+Average InCome: {{ county.averageIncome }}
+<br>
+Poverty Rate: {{ county.povertyRate }}
+<br>
+Unemployment Rate: {{ county.unemploymentRate }}
+<br>
+Living Wage: {{ county.livingWage }}
+<br>
+Food Cost: {{ county.foodCost }}
+<br>
+Medical Cost: {{ county.medicalCost }}
+<br>
+Housing Cost: {{ county.housingCost }}
+<br>
+Tax Cost: {{ county.taxCost }}
+<br>
+Temperature:
+<table border="1">
+<tr>
+<td>Spring, Summer, Autumn, Winter</td>
+</tr>
+<tr>
+    <td>{{ county.springTemperature }}, {{ county.summerTemperature }}, {{ county.autumnTemperature }}, {{ county.winterTemperature }}</td>
+</tr>
+</table>
+
+
+</body>
+</html>

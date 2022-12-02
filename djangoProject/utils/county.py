@@ -1,3 +1,4 @@
+import copy
 import csv
 from typing import List, Tuple
 from operator import attrgetter
@@ -11,7 +12,7 @@ class county(object):
         """
         county_name	State	county formatted	crime_rate_per_100000	PCTPOVALL_2020	diversity index	noaa/temp-jan	noaa/temp-apr	noaa/temp-jul	noaa/temp-oct	edu/some-college	bls/2020/unemployed	life-expectancy	population/2019	avg_income	poverty-rate	Unemployment_rate	cost-of-living/living_wage	cost-of-living/food_costs	cost-of-living/medical_costs	cost-of-living/housing_costs	cost-of-living/tax_costs
         """
-        self.countyName = info['county formatted']
+        self.countyName = " ".join(info['county formatted'].split(" ")[:-1])
         self.state = info['State']
         self.crime_rate = info['crime_rate_per_100000']
         self.diversityIndex = info['diversity index']
@@ -37,8 +38,14 @@ class county(object):
 
 def sortCounty(countyList: List[county], returnNumber: int, *attributes):
     print(attributes)
-    countyList.sort(key=attrgetter(*attributes), reverse=True)
-    return countyList[:returnNumber]
+    c = copy.deepcopy(countyList)
+    resDict = {countyList[i].countyName: i for i in range(len(countyList))}
+
+    c.sort(key=attrgetter(*attributes), reverse=True)
+    returnDict = dict()
+    for i in range(returnNumber):
+        returnDict[c[i].countyName] = resDict[c[i].countyName]
+    return returnDict
 
 
 def clusterCounty(countyList: List[county], targetCounty: int, returnNumber:int, *attributes):

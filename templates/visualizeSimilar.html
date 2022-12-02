@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Similar Result</title>
   </head>
   <body>
     <script src="http://d3js.org/d3.v5.js"></script>
@@ -13,14 +13,14 @@
       nodes[center] = {name:center}
 
       {% for name, distance in resultDict.items %}
-        {nodes["{{name}}"] = {name:"{{name}}"}}
-        {links.push({source:{name:center}, target:{name:"{{name}}"}, value:{{distance}}})}
+        { nodes["{{ name }}"] = {name:"{{ name }}"} }
+        { links.push({source:{name:center}, target:{name:"{{ name }}"}, value:{{ distance }} }) }
       {% endfor %}
 
       var width = 1200,
           height = 700;
-      console.log(links)
-      console.log(nodes)
+      {#console.log(links)#}
+      {#console.log(nodes)#}
 
       var force = d3.forceSimulation()
           .nodes(d3.values(nodes))
@@ -68,7 +68,7 @@
             return (d.name);
           })
           .attr("r", (d) => {
-            d.weight = links.filter((l) => l.source.name == d.name || l.target.name == d.name).length
+            d.weight = links.filter((l) => l.source.name === d.name || l.target.name === d.name).length
           return d.weight *0.5 + 20}
           )
           .style("fill", d =>colorScale(d.weight *0.8))
@@ -111,7 +111,7 @@
 
       function dragended(d) {
           if (!d3.event.active) force.alphaTarget(0);
-          if (d.fixed == true) {
+          if (d.fixed === true) {
               d.fx = d.x;
               d.fy = d.y;
           }

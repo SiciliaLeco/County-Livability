@@ -24,4 +24,6 @@ urlpatterns = [
     path("result/", views.getSortedResult, name="getReport"),
     path("similar/", views.findSimilar),
     path("similarResult/", views.getSimilarResult, name="getSimilar"),
+    path("welcome/", views.search),
+    path("searchResult/", views.display, name="searchCounty"),
 ]

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to CSE6242 group#38's homepage!</title>
+</head>
+<body>
+
+<form method="get" action="{% url 'searchCounty' %}">
+    <h1>Welcome! </h1>
+    <div>
+        Which county do you wish to set as a target county?
+
+        <select name="selectCounty">
+            {% for k, v in counties.items %}
+                <option value="{{ v }}"> {{ k }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <button type="submit">Submit query</button>
+    </div>
+</form>
+<br>
+Other functions:
+<br>
+· <a href="/similar"> Find similar counties by clustering algorithm </a>
+<br>
+· <a href="/similar"> Radar Plot (Hubert & William) </a>
+<br>
+·  <a href="/filter"> Filter Tools </a>
+</body>
+</html>

@@ -57,8 +57,12 @@
         </div>
     </fieldset>
 </form>
-{% for county in counties %}
-    <p>County Name: {{ county.countyName}}</p>
+
+Found relevant counties:
+{% for countyName, index in counties.items %}
+    <br>
+    <a href="/searchResult/?selectCounty={{ index }}"> {{ countyName }} </a>
+
 {% endfor %}
 </body>
 </html>
