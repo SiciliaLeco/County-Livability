@@ -4,12 +4,98 @@
     <meta charset="UTF-8" />
     <title>Find most similar counties</title>
     <style>
+      select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+        outline: 0;
+        box-shadow: rgb(76, 174, 135);
+        border-color: rgb(76, 174, 135);
+        background: white;
+        background-image: none;
+        flex: 1;
+        padding: 0 0.5em;
+        color: rgb(121, 120, 120);
+        cursor: pointer;
+        font-size: 16px;
+        font-family: "Open Sans", sans-serif;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+      select {
+        position: relative;
+        width: 20em;
+        height: 2.5em;
+        border: 2px solid #aaa;
+        background: rgb(251, 252, 251);
+        overflow: hidden;
+        border-radius: 0.25em;
+      }
+      select:focus {
+        border-color: rgb(76, 174, 135);
+      }
+
+      #returnNumber {
+        border: 2px solid #aaa;
+        border-radius: 4px;
+        margin: 8px 0;
+        outline: none;
+        padding: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+
+      #returnNumber:focus {
+        border-color: rgb(76, 174, 135);
+      }
+
+      button {
+        background-color: rgb(76, 174, 135);
+        border: 1px solid rgb(76, 174, 135);
+        border-radius: 4px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        font-family: "Akzidenz Grotesk BQ Medium", -apple-system,
+          BlinkMacSystemFont, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        outline: none;
+        outline: 0;
+        padding: 10px 25px;
+        text-align: center;
+        transform: translateY(0);
+        transition: transform 150ms, box-shadow 150ms;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      button:hover {
+        box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
+        transform: translateY(-2px);
+      }
+
+      @media (min-width: 768px) {
+        button {
+          padding: 10px 30px;
+        }
+      }
+
+      .prompt {
+        font-size: 17px;
+        margin-right: 10px;
+      }
+
       div {
         margin-bottom: 10px;
       }
 
       fieldset {
-        background: #e5e8e9;
+        background: #eef0f1;
       }
       legend {
         padding: 20px 0;
@@ -17,7 +103,12 @@
       }
 
       body {
-        font-family: Tahoma, sans-serif;
+        font-family: "Akzidenz Grotesk BQ Medium", -apple-system,
+          BlinkMacSystemFont, sans-serif;
+      }
+
+      .cbx {
+        font-size: 15px;
       }
       .wrapper * {
         box-sizing: border-box;
@@ -52,6 +143,7 @@
         border: 1px solid #cccfdb;
         transition: all 0.2s ease;
         box-shadow: 0 1px 1px rgba(0, 16, 75, 0.05);
+        border-color: rgb(139, 140, 140);
       }
       .wrapper .cbx span:first-child svg {
         position: absolute;
@@ -73,15 +165,15 @@
         line-height: 18px;
       }
       .wrapper .cbx:hover span:first-child {
-        border-color: #07f;
+        border-color: rgb(76, 174, 135);
       }
       .wrapper .inp-cbx {
         position: absolute;
         visibility: hidden;
       }
       .wrapper .inp-cbx:checked + .cbx span:first-child {
-        background: #07f;
-        border-color: #07f;
+        background: rgb(76, 174, 135);
+        border-color: rgb(76, 174, 135);
         animation: wave-4 0.4s ease;
       }
       .wrapper .inp-cbx:checked + .cbx span:first-child svg {
@@ -128,15 +220,17 @@
       <fieldset>
         <legend>Similar Counties</legend>
         <div>
-          Please choose a base county (our program will help you find the most
-          similar counties to the county you choose)
+          <label class="prompt">
+            Please choose a base county (our program will help you find the most
+            similar counties to the county you choose)
+          </label>
           <select name="selectCounty">
             {% for k, v in counties.items %}
             <option value="{{ v }}">{{ k }}</option>
             {% endfor %}
           </select>
         </div>
-        <p>Please select the attribute you concern.</p>
+        <p class="prompt">Please select the attribute you concern.</p>
         <div class="wrapper">
           <input
             class="inp-cbx"
@@ -348,12 +442,17 @@
         </div>
 
         <div>
-          How many counties do you wish to return?
-          <input type="text" name="returnNumber" placeholder="default 10" />
+          <label class="prompt">How many counties do you wish to return?</label>
+          <input
+            type="text"
+            id="returnNumber"
+            name="returnNumber"
+            placeholder="default 10"
+          />
         </div>
 
         <div>
-          <button type="submit">Submit query</button>
+          <button type="submit">Generate plot</button>
         </div>
       </fieldset>
     </form>
