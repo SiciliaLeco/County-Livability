@@ -66,13 +66,26 @@
       select:focus {
         border-color: rgb(76, 174, 135);
       }
+
+      body {
+        font-family: "Akzidenz Grotesk BQ Medium", -apple-system,
+          BlinkMacSystemFont, sans-serif;
+      }
+      div {
+        margin-bottom: 10px;
+      }
+
+      .prompt {
+        font-size: 17px;
+        margin-right: 10px;
+      }
     </style>
   </head>
   <body>
     <form method="get" action="{% url 'searchCounty' %}">
       <h1>Welcome!</h1>
       <div>
-        Choose a base county:
+        <label class="prompt">Choose a base county:</label>
 
         <select name="selectCounty">
           {% for k, v in counties.items %}
