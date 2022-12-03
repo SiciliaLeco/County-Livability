@@ -12,15 +12,17 @@
       var links = [];
       nodes[center] = {name:center}
 
-      {% for name, distance in resultDict.items %}
-        { nodes["{{ name }}"] = {name:"{{ name }}"} }
-        { links.push({source:{name:center}, target:{name:"{{ name }}"}, value:{{ distance }} }) }
+      {% for county, distance in resultDict.items %}
+        { links.push({source:center, target:"{{ county }}", value:{{ distance }} }) }
       {% endfor %}
 
+      links.forEach(function(link) {
+        link.source = nodes[link.source] || (nodes[link.source] = {name: link.source})
+        link.target = nodes[link.target] || (nodes[link.target] = {name: link.target})
+      })
+      console.log(links)
       var width = 1200,
           height = 700;
-      {#console.log(links)#}
-      {#console.log(nodes)#}
 
       var force = d3.forceSimulation()
           .nodes(d3.values(nodes))
@@ -42,13 +44,13 @@
             .data(links)
             .enter()
             .append("path")
-            // .attr("class", function(d) { return "link " + d.type; })
-            // .style('stroke', (d) => (d.value === 0) ? "gray":"green")
-            // .style('stroke-width', (d) => (d.value === 0) ? "5px":"3px")
-            // .style('stroke-dasharray', (d) => (d.value === 0) ? 'none':"2")
+            .attr("class", function(d) { return "link " + d.type; })
+            .style('stroke', (d) => (d.value === 0) ? "gray":"green")
+            .style('stroke-width', (d) => (d.value === 0) ? "5px":"3px")
+            .style('stroke-dasharray', (d) => (d.value === 0) ? 'none':"2")
 
       var node = svg.selectAll(".node")
-            .data(force.nodes())
+            .data(d3.values(nodes))
             .enter()
             .append("g")
             .attr("class", "node")
@@ -67,11 +69,8 @@
           .attr("id", function(d){
             return (d.name);
           })
-          .attr("r", (d) => {
-            d.weight = links.filter((l) => l.source.name === d.name || l.target.name === d.name).length
-          return d.weight *0.5 + 20}
-          )
-          .style("fill", d =>colorScale(d.weight *0.8))
+          .attr("r", 20)
+          .style("fill", d =>colorScale(5 *0.8))
 
       node.append("text")
           .style("font-weight", "bold")
