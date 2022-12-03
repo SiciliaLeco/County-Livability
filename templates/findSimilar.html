@@ -1,69 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Find most similar counties</title>
-</head>
-<body>
-<form method="get" action="{%  url 'getSimilar' %}">
-    <fieldset>
+    <style>
+      div {
+        margin-bottom: 10px;
+      }
+
+      fieldset {
+        background: #e5e8e9;
+      }
+      legend {
+        padding: 20px 0;
+        font-size: 25px;
+      }
+
+      body {
+        font-family: Tahoma, sans-serif;
+      }
+      .wrapper * {
+        box-sizing: border-box;
+      }
+      .wrapper .cbx {
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        padding: 6px 8px;
+        border-radius: 6px;
+        overflow: hidden;
+        transition: all 0.2s ease;
+        display: inline-block;
+      }
+      .wrapper .cbx:not(:last-child) {
+        margin-right: 6px;
+      }
+      .wrapper .cbx:hover {
+        background: rgba(0, 119, 255, 0.06);
+      }
+      .wrapper .cbx span {
+        float: left;
+        vertical-align: middle;
+        transform: translate3d(0, 0, 0);
+      }
+      .wrapper .cbx span:first-child {
+        position: relative;
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+        transform: scale(1);
+        border: 1px solid #cccfdb;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 1px rgba(0, 16, 75, 0.05);
+      }
+      .wrapper .cbx span:first-child svg {
+        position: absolute;
+        top: 3px;
+        left: 2px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 16px;
+        stroke-dashoffset: 16px;
+        transition: all 0.3s ease;
+        transition-delay: 0.1s;
+        transform: translate3d(0, 0, 0);
+      }
+      .wrapper .cbx span:last-child {
+        padding-left: 8px;
+        line-height: 18px;
+      }
+      .wrapper .cbx:hover span:first-child {
+        border-color: #07f;
+      }
+      .wrapper .inp-cbx {
+        position: absolute;
+        visibility: hidden;
+      }
+      .wrapper .inp-cbx:checked + .cbx span:first-child {
+        background: #07f;
+        border-color: #07f;
+        animation: wave-4 0.4s ease;
+      }
+      .wrapper .inp-cbx:checked + .cbx span:first-child svg {
+        stroke-dashoffset: 0;
+      }
+      .wrapper .inline-svg {
+        position: absolute;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        user-select: none;
+      }
+      @media screen and (max-width: 640px) {
+        .wrapper .cbx {
+          width: 100%;
+          display: inline-block;
+        }
+      }
+      @-moz-keyframes wave-4 {
+        50% {
+          transform: scale(0.9);
+        }
+      }
+      @-webkit-keyframes wave-4 {
+        50% {
+          transform: scale(0.9);
+        }
+      }
+      @-o-keyframes wave-4 {
+        50% {
+          transform: scale(0.9);
+        }
+      }
+      @keyframes wave-4 {
+        50% {
+          transform: scale(0.9);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <form method="get" action="{%  url 'getSimilar' %}">
+      <fieldset>
+        <legend>Similar Counties</legend>
+        <div>
+          Please choose a base county (our program will help you find the most
+          similar counties to the county you choose)
+          <select name="selectCounty">
+            {% for k, v in counties.items %}
+            <option value="{{ v }}">{{ k }}</option>
+            {% endfor %}
+          </select>
+        </div>
         <p>Please select the attribute you concern.</p>
-        <div>
-            <input type="checkbox" id="crime_rate" name="interest" value="crime_rate"/>
-            <label for="coding">Crime Rate</label>
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="crime_rate"
+            type="checkbox"
+            name="interest8"
+            value="crime_rate"
+          />
+          <label class="cbx" for="crime_rate"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Crime Rate</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="population" name="interest1" value="population"/>
-            <label for="music">Population</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="population"
+            type="checkbox"
+            name="interest8"
+            value="population"
+          />
+          <label class="cbx" for="population"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Population</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="averageIncome" name="interest2" value="averageIncome"/>
-            <label for="music">Average Income</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="averageIncome"
+            type="checkbox"
+            name="interest8"
+            value="averageIncome"
+          />
+          <label class="cbx" for="averageIncome"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Average Income</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="povertyRate" name="interest3" value="povertyRate"/>
-            <label for="music">Poverty Rate</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="povertyRate"
+            type="checkbox"
+            name="interest8"
+            value="povertyRate"
+          />
+          <label class="cbx" for="povertyRate"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Poverty Rate</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="unemploymentRate" name="interest4" value="unemploymentRate"/>
-            <label for="music">Unemployment Rate</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="unemploymentRate"
+            type="checkbox"
+            name="interest8"
+            value="unemploymentRate"
+          />
+          <label class="cbx" for="unemploymentRate"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Unemployment Rate</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="livingWage" name="interest5" value="livingWage"/>
-            <label for="music">Living Wage</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="livingWage"
+            type="checkbox"
+            name="interest8"
+            value="livingWage"
+          />
+          <label class="cbx" for="livingWage"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Living Wage</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="foodCost" name="interest6" value="foodCost"/>
-            <label for="music">Food Cost</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="foodCost"
+            type="checkbox"
+            name="interest8"
+            value="foodCost"
+          />
+          <label class="cbx" for="foodCost"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Food Cost</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="medicalCost" name="interest7" value="medicalCost"/>
-            <label for="music">Medical Cost</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="medicalCost"
+            type="checkbox"
+            name="interest8"
+            value="medicalCost"
+          />
+          <label class="cbx" for="medicalCost"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Medical Cost</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="housingCost" name="interest8" value="housingCost"/>
-            <label for="music">Housing Cost</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="housingCost"
+            type="checkbox"
+            name="interest8"
+            value="housingCost"
+          />
+          <label class="cbx" for="housingCost"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Housing Cost</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
-        <div>
-            <input type="checkbox" id="taxCost" name="interest9" value="taxCost"/>
-            <label for="music">Tax Cost</label>
+
+        <div class="wrapper">
+          <input
+            class="inp-cbx"
+            id="taxCost"
+            type="checkbox"
+            name="interest8"
+            value="taxCost"
+          />
+          <label class="cbx" for="taxCost"
+            ><span>
+              <svg width="12px" height="10px">
+                <use xlink:href="#check-4"></use></svg></span
+            ><span>Tax Cost</span></label
+          >
+          <svg class="inline-svg">
+            <symbol id="check-4" viewbox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
         </div>
+
         <div>
-            How many counties do you wish to return?
-            <input type="text" name="returnNumber" placeholder="default 10">
+          How many counties do you wish to return?
+          <input type="text" name="returnNumber" placeholder="default 10" />
         </div>
-        <div>
-            Which county do you wish to set as a target county? (our program will help you find the most similar counties to the county you choose)
-            <select name="selectCounty">
-                    {% for k, v in counties.items %}
-                        <option value="{{ v }}"> {{ k }}</option>
-                    {% endfor %}
-             </select>
-        </div>
+
         <div>
           <button type="submit">Submit query</button>
         </div>
-    </fieldset>
-</form>
-</body>
+      </fieldset>
+    </form>
+  </body>
 </html>
