@@ -15,13 +15,22 @@
         font-family: "Akzidenz Grotesk BQ Medium", -apple-system,
           BlinkMacSystemFont, sans-serif;
       }
+
+      div {
+        margin-bottom: 15px;
+      }
+
+      span {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
     </style>
   </head>
   <body>
     <fieldset>
       <legend>{{ county.countyName }}, {{ county.state }}</legend>
 
-      <b>Crime Rate (per 100000):</b> {{ county.crimeRate }}
+      <b>Crime Rate (per 100000):</b> {{ county.crime_rate }}
       <br />
       <b>Population:</b> {{ county.population }}
       <br />
@@ -47,12 +56,14 @@
 
       <table border="1">
         <tr>
-          <td>Spring, Summer, Autumn, Winter</td>
+          <td><b>Spring</b>, <b>Summer</b>, <b>Autumn</b>, <b>Winter</b></td>
         </tr>
         <tr>
           <td>
-            {{ county.springTemperature }}, {{ county.summerTemperature }},
-            {{county.autumnTemperature }}, {{ county.winterTemperature }}
+            <span>{{ county.springTemperature }}</span>
+            <span>{{ county.summerTemperature }}</span>
+            <span>{{county.autumnTemperature }}</span>
+            <span>{{ county.winterTemperature }}</span>
           </td>
         </tr>
       </table>
