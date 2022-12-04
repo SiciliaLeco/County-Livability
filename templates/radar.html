@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .chartMenu {
+        width: 100vw;
+        height: 40px;
+        background: #2e2e2e;
+        color: rgb(239, 239, 239);
+      }
+      .chartMenu p {
+        padding: 10px;
+        font-size: 20px;
+      }
+      .Card {
+        width: 100vw;
+        height: calc(100vh - 50px);
+        background: rgba(255, 26, 102, 0.055);
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        
+      }
+      .Box {
+        width: 1000px;
+        padding: 50px;
+        border-radius: 20px;
+        border:  3px rgb(0, 0, 0);
+        background: rgba(255, 255, 255, 0.577);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chartMenu">
+      <p>County Livability Indicator</p>
+    </div>
+      
+      <select id="selection" multiple>
+
+      <option value="Abbeville County SC">Abbeville County SC</option>
+      <option value="Acadia Parish LA">Acadia Parish LA</option>
+      <option value="Accomack County VA">Accomack County VA</option>
+      <option value="Ada County ID">Ada County ID</option>
+      <option value="Adair County IA">Adair County IA</option>
+      </select>
+    </div>
+    <div class="Card">
+      <div class="Box">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src=
+        "https://d3js.org/d3.v4.min.js">
+    </script>
+    <script>
+      
+      var dataset;
+      {% load static %}
+     d3.csv( "{% static "dataset.csv" %}" ,
+      {#"dataset.csv",#}
+        (d) => {
+            
+    const data = {
+      
+      labels: ['cost of living', 'Temperature', 'life-expectancy', 'Education level', 'Safety', 'Wealth ', 'Employment rate'],
+      datasets: [{
+        label: d[0]['county formatted'],
+        data: [d[0]['p_cost'], d[0]['p_temperature'], d[0]['p_life'], d[0]['p_edu'], d[0]['p_safe'], d[0]['p_wealth'], d[0]['p_employment']], //percentile in all counties
+    hoverBackgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(255, 159, 64, 0.4)', 'rgba(54, 162, 235, 0.4)'],
+      borderWidth: 1,
+      hoverBorderWidth: 3,
+        
+        borderWidth: 1
+      },
+    
+      {
+        label: d[1]['county formatted'],
+        data: [d[1]['p_cost'], d[1]['p_temperature'], d[1]['p_life'], d[1]['p_edu'], d[1]['p_safe'], d[1]['p_wealth'], d[1]['p_employment']],
+        hoverBackgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(255, 159, 64, 0.4)', 'rgba(54, 162, 235, 0.4)'],
+      borderWidth: 1,
+      hoverBorderWidth: 3,
+        borderWidth: 1
+      },
+    
+      {
+        label: d[2]['county formatted'],
+        data: [d[2]['p_cost'], d[2]['p_temperature'], d[2]['p_life'], d[2]['p_edu'], d[2]['p_safe'], d[2]['p_wealth'], d[2]['p_employment']],
+        hoverBackgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(255, 159, 64, 0.4)', 'rgba(54, 162, 235, 0.4)'],
+      borderWidth: 1,
+      hoverBorderWidth: 3,
+        borderWidth: 1
+
+        
+      }]
+    };
+    
+    // config 
+    const config = {
+      type: 'radar',
+      data,
+      options: {
+        scales: {
+          r:{
+            pointLabels:{
+              font:{
+                size:20
+
+              }
+            }
+          },
+
+
+          y: {
+
+            beginAtZero: true
+          }
+        
+        },
+        plugins:{
+            legend:{
+            onHover:function(evt,legendItem){
+                const activeElement = {
+                datasetIndex: 1,
+                index: legendItem.datasetIndex
+          };
+                this.chart.setActiveElements(activeElement)
+                console.log(activeElement)
+            }
+            },
+            tooltip:{
+                
+                usePointStyle: true,
+                callbacks: {
+                    
+                    labelPointStyle: function(context) {
+                        return {
+                            pointStyle: 'circle',
+                            rotation: 0
+                        };
+   
+                    },
+                    beforeTitle: function(context){
+                        //console.log(context[0].dataset.label)
+                        return  context[0].dataset.label
+                        
+                    },
+                    afterBody : function(context){
+                        return 'Complete  data for '+context[0].dataset.label+ ' in percentile'
+
+                    },
+                    footer : function(context){
+                        arr=[]
+                        
+                        for(let i =0; i<data.labels.length;i++){
+                            arr[i]=data.labels[i]+':'+context[0].dataset.data[i]+"%"
+                        }
+                        console.log(data)
+                        return  arr
+
+                    }
+
+                } 
+            }
+        },
+ 
+      }
+    };
+    Chart.defaults.font.size = 17;
+
+    const myChart = new Chart(
+      document.getElementById('radarChart'),
+      config
+      
+    );
+  })
+    </script>
+
+  </body>
+</html>

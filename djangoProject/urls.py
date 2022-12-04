@@ -26,4 +26,5 @@ urlpatterns = [
     path("similarResult/", views.getSimilarResult, name="getSimilar"),
     path("welcome/", views.search),
     path("searchResult/", views.display, name="searchCounty"),
+    path("radar/", views.radar),
 ]
