@@ -43,7 +43,7 @@ def findSimilar(request):
 def format(str: str):
     new_str = ""
     for i in range(len(str)):
-        if str[i] <= "Z":
+        if "A" <= str[i] <= "Z":
             new_str += " "
         new_str += str[i]
     return new_str
@@ -56,10 +56,12 @@ def getSimilarResult(request):
     returnNumber = 10  # default
     print(res)
     attrs = res.getlist("interest8")
+    print(attrs)
     displayAttrs = attrs[-1]
     if len(attrs) > 1:
         displayAttrs = ", ".join(attrs[:-1]) + " and " + displayAttrs
     displayAttrs = format(displayAttrs)
+    print(displayAttrs)
     if res['returnNumber']:
         returnNumber = int(res['returnNumber'])
     target = int(res['selectCounty'])
