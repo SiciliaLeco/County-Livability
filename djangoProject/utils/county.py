@@ -14,7 +14,7 @@ class county(object):
         """
         self.countyName = " ".join(info['county formatted'].split(" ")[:-1])
         self.state = info['State']
-        self.crime_rate = info['crime_rate_per_100000']
+        self.crimeRate = info['crime_rate_per_100000'].split(".")[0]
         self.diversityIndex = info['diversity index']
         self.springTemperature = info['noaa/temp-jan']
         self.summerTemperature = info['noaa/temp-apr']
