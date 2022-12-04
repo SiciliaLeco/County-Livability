@@ -102,7 +102,7 @@
 
       var colorScale = d3.scaleSequential()
             .interpolator(d3.interpolateReds)
-            .domain([4,16]);
+            .domain([5, links.length*0.8 +8]);
 
       node.append("circle")
           .attr("id", function(d){
@@ -112,7 +112,7 @@
             if (d.name === center) {
               return 40
             } else {
-              return Math.log2(12 - d.index) * 8
+              return Math.log2(links.length+2 - d.index) * 6 + 7
             }})
 
           .style("stroke", function(d) {
@@ -124,7 +124,7 @@
             if (d.name === center) {
               return '#bfbfbf'
           } else {
-            return colorScale((12-d.index)*0.8+5)
+            return colorScale((links.length+2-d.index)*0.8+5)
           }})
 
       node.append("text")
