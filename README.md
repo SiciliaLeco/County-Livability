@@ -18,3 +18,4 @@ after installing all packages, you can run the following command in terminal (Ma
 ```
 python manage.py runserver
 ```
+After executing this code, open your browser and key in http://localhost:8000/welcome/, then you can browse everything about our project!
