@@ -44,130 +44,135 @@
       nodes[center] = {name:center}
       var hyperlinks = Object();
       var legendt = document.getElementById("legend1")
-      legendt.innerText = "Counties Similar to " + center + "-" + "{{ attributes }}";
+      legendt.innerText = "Counties Similar to " + center
       hyperlinks["{{ center.countyName }}"] = "{{ center.html }}";
 
-            {% for county, distance in resultDict.items %}
-              { links.push({source:center, target:"{{ county.countyName }}", value:{{ distance }} }) }
-              { hyperlinks["{{ county.countyName }}"] = "{{ county.html }} "}
-            {% endfor %}
+      {% for county, distance in resultDict.items %}
+        { links.push({source:center, target:"{{ county.countyName }}", value:{{ distance }} }) }
+        { hyperlinks["{{ county.countyName }}"] = "{{ county.html }} "}
+      {% endfor %}
 
-            links.forEach(function(link) {
-              link.source = nodes[link.source] || (nodes[link.source] = {name: link.source})
-              link.target = nodes[link.target] || (nodes[link.target] = {name: link.target})
-            })
+      links.forEach(function(link) {
+        link.source = nodes[link.source] || (nodes[link.source] = {name: link.source})
+        link.target = nodes[link.target] || (nodes[link.target] = {name: link.target})
+      })
 
-            var width = 800,
-                height = 700;
+      var width = 800,
+          height = 700;
 
-            var force = d3.forceSimulation()
-                .nodes(d3.values(nodes))
-                .force("link", d3.forceLink(links).distance(100))
-                .force('center', d3.forceCenter(width / 2, height / 2))
-                .force("x", d3.forceX())
-                .force("y", d3.forceY())
-                .force("charge", d3.forceManyBody().strength(-250))
-                .alphaTarget(1)
-                .on("tick", tick);
+      var force = d3.forceSimulation()
+          .nodes(d3.values(nodes))
+          .force("link", d3.forceLink(links).distance(100))
+          .force('center', d3.forceCenter(width / 2, height / 2))
+          .force("x", d3.forceX())
+          .force("y", d3.forceY())
+          .force("charge", d3.forceManyBody().strength(-250))
+          .alphaTarget(1)
+          .on("tick", tick);
 
-            var svg = d3.select("fieldset")
-                  .append("svg")
-                  .attr("width", width)
-                  .attr("height", height);
+      var svg = d3.select("fieldset")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
 
-            var path = svg.append("g")
-                  .selectAll("path")
-                  .data(links)
-                  .enter()
-                  .append("path")
-                  .style('stroke', "green")
-                  .style('stroke-width', "0px")
-                  .attr("class", function(d) { return "link " + d.type; })
+      svg.append("text")
+        .text("Similarity calculated by: " + "{{attributes}}")
+        .attr("x", 0)
+        .attr("y", 670)
 
-            var node = svg.selectAll(".node")
-                  .data(d3.values(nodes))
-                  .enter()
-                  .append("g")
-                  .attr("class", "node")
-                .on("dblclick", function (d) { window.open(hyperlinks[d.name]);})
-                  .call(d3.drag()
-                      .on("start", dragstarted)
-                      .on("drag", dragged)
-                      .on("end", dragended))
+      var path = svg.append("g")
+            .selectAll("path")
+            .data(links)
+            .enter()
+            .append("path")
+            .style('stroke', "green")
+            .style('stroke-width', "0px")
+            .attr("class", function(d) { return "link " + d.type; })
 
-            var colorScale = d3.scaleSequential()
-                  .interpolator(d3.interpolateReds)
-                  .domain([4,16]);
+      var node = svg.selectAll(".node")
+            .data(d3.values(nodes))
+            .enter()
+            .append("g")
+            .attr("class", "node")
+          .on("dblclick", function (d) { window.open(hyperlinks[d.name]);})
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended))
 
-            node.append("circle")
-                .attr("id", function(d){
-                  return (d.name);
-                })
-                .attr("r", function(d) {
-                  if (d.name === center) {
-                    return 40
-                  } else {
-                    return Math.log2(12 - d.index) * 8
-                  }})
+      var colorScale = d3.scaleSequential()
+            .interpolator(d3.interpolateReds)
+            .domain([4,16]);
 
-                .style("stroke", function(d) {
-                  if (d.name === center) {
-                    return "black"
-                  }
-                })
-                .style("fill", function(d) {
-                  if (d.name === center) {
-                    return '#bfbfbf'
-                } else {
-                  return colorScale((12-d.index)*0.8+5)
-                }})
+      node.append("circle")
+          .attr("id", function(d){
+            return (d.name);
+          })
+          .attr("r", function(d) {
+            if (d.name === center) {
+              return 40
+            } else {
+              return Math.log2(12 - d.index) * 8
+            }})
 
-            node.append("text")
-                .text(d => d.name)
-                .attr("dx",30)
-                .attr("dy",".35em")
+          .style("stroke", function(d) {
+            if (d.name === center) {
+              return "black"
+            }
+          })
+          .style("fill", function(d) {
+            if (d.name === center) {
+              return '#bfbfbf'
+          } else {
+            return colorScale((12-d.index)*0.8+5)
+          }})
+
+      node.append("text")
+          .text(d => d.name)
+          .attr("dx",30)
+          .attr("dy",".35em")
 
 
-            function tick() {
-                path.attr("d", function(d) {
-                    var dx = d.target.x - d.source.x,
-                        dy = d.target.y - d.source.y,
-                        dr = Math.sqrt(dx * dx + dy * dy);
-                    return "M" +
-                        d.source.x + "," +
-                        d.source.y + "A" +
-                        dr + "," + dr + " 0 0,1 " +
-                        d.target.x + "," +
-                        d.target.y;
+      function tick() {
+          path.attr("d", function(d) {
+              var dx = d.target.x - d.source.x,
+                  dy = d.target.y - d.source.y,
+                  dr = Math.sqrt(dx * dx + dy * dy);
+              return "M" +
+                  d.source.x + "," +
+                  d.source.y + "A" +
+                  dr + "," + dr + " 0 0,1 " +
+                  d.target.x + "," +
+                  d.target.y;
 
-                });
+          });
 
-                node.attr("transform", d => "translate(" + d.x + "," + d.y + ")" );
-            };
+          node.attr("transform", d => "translate(" + d.x + "," + d.y + ")" );
+      };
 
-            function dragstarted(d) {
-                if (!d3.event.active) force.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
-                d3.select(this).classed("fixed",d.fixed = true)
-            };
+      function dragstarted(d) {
+          if (!d3.event.active) force.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+          d3.select(this).classed("fixed",d.fixed = true)
+      };
 
-            function dragged(d) {
-                d.fx = d3.event.x;
-                d.fy = d3.event.y;
-            };
+      function dragged(d) {
+          d.fx = d3.event.x;
+          d.fy = d3.event.y;
+      };
 
-            function dragended(d) {
-                if (!d3.event.active) force.alphaTarget(0);
-                if (d.fixed === true) {
-                    d.fx = d.x;
-                    d.fy = d.y;
-                }
-                else {
-                    d.fx = null;
-                    d.fy = null;
-                }
-            };
+      function dragended(d) {
+          if (!d3.event.active) force.alphaTarget(0);
+          if (d.fixed === true) {
+              d.fx = d.x;
+              d.fy = d.y;
+          }
+          else {
+              d.fx = null;
+              d.fy = null;
+          }
+      };
     </script>
   </body>
 </html>
