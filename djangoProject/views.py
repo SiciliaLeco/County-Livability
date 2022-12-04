@@ -56,6 +56,10 @@ def getSimilarResult(request):
     returnNumber = 10  # default
     print(res)
     attrs = res.getlist("interest8")
+    displayAttrs = attrs[-1]
+    if len(attrs) > 1:
+        displayAttrs = ", ".join(attrs[:-1]) + " and " + displayAttrs
+    displayAttrs = format(displayAttrs)
     if res['returnNumber']:
         returnNumber = int(res['returnNumber'])
     target = int(res['selectCounty'])
@@ -66,7 +70,8 @@ def getSimilarResult(request):
     for r in res:
         resultDict[r[0]] = r[1]
         # resultDict.append([r[0].countyName])
-    d = {'resultDict': resultDict, 'center': countyList[target], "attributes": format(" and ".join(attrs)).title().replace("And", "and")}
+    d = {'resultDict': resultDict, 'center': countyList[target],
+         "attributes": displayAttrs.title().replace("And", "and")}
     print(d)
     return render(request, "visualizeSimilar.html", d)
 
