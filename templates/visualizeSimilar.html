@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <style>
+
+    path.link {
+      fill: none;
+      stroke: #666;
+      stroke-width: 1.5px;
+    }
+    
+    circle {
+      fill: #ccc;
+      stroke: #fff;
+      stroke: black;
+      stroke-width: 1.5px;
+    }
+    
+    text {
+      fill: #000;
+      font: 10px sans-serif;
+      pointer-events: none;
+      font-weight: 800;
+    }
+    
+    </style>
     <meta charset="UTF-8" />
     <title>Similar Result</title>
   </head>
@@ -45,20 +68,21 @@
             .enter()
             .append("path")
             .attr("class", function(d) { return "link " + d.type; })
-            .style('stroke', (d) => (d.value === 0) ? "gray":"green")
-            .style('stroke-width', (d) => (d.value === 0) ? "5px":"3px")
-            .style('stroke-dasharray', (d) => (d.value === 0) ? 'none':"2")
+            .style('stroke', "green")
+            .style('stroke-width', "3px")
+            .style('stroke-dasharray', "2")
 
       var node = svg.selectAll(".node")
             .data(d3.values(nodes))
             .enter()
             .append("g")
             .attr("class", "node")
+            .on("dblclick", releasenode)
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended))
-                .on("dblclick", releasenode);
+               
 
       var colorScale = d3.scaleSequential()
             .interpolator(d3.interpolateBlues)
@@ -69,13 +93,15 @@
           .attr("id", function(d){
             return (d.name);
           })
-          .attr("r", 20)
+          .attr("r", 15)
           .style("fill", d =>colorScale(5 *0.8))
 
       node.append("text")
-          .style("font-weight", "bold")
+          // .style("font-weight", "bold")
           .text(d => d.name)
-          .style("pointer-events", "none")
+          // .style("pointer-events", "none")
+          .attr("dx",30)
+          .attr("dy",".35em")
 
       function tick() {
           path.attr("d", function(d) {
@@ -94,13 +120,45 @@
 
           node.attr("transform", d => "translate(" + d.x + "," + d.y + ")" );
       };
+      // Add degree 
+      d3.selectAll('g.node')
+      .each(function(d) {
+          d.degree = 10;
+      });
 
+      // Calculate degree
+      links.forEach(function(d){
+          d.source.degree += 1;
+          d.target.degree += 1;
+      });
+
+      // Accessor functions to get min & max
+      var minDegree = d3.min(
+      d3.values(nodes), function(d) {
+          return d.degree; })
+
+      var maxDegree = d3.max(
+      d3.values(nodes), function(d) { 
+          return d.degree; })
+
+    // Create node scale based on value
+      var nodescale = d3.scaleSqrt()
+      .domain( [minDegree, maxDegree] )
+      .range( [0, 30] ); 
+      // Add the node circles
+      node.append("circle")
+          .attr("r", function(d) {
+          return nodescale(d.degree);
+          })
+    
 
       function dragstarted(d) {
           if (!d3.event.active) force.alphaTarget(0.3).restart();
           d.fx = d.x;
           d.fy = d.y;
-          d.fixed = true
+          d3.select(this).classed("fixed",d.fixed = true)
+            .selectAll("circle")
+            .style("fill", "yellow");
       };
 
       function dragged(d) {
