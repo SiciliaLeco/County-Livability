@@ -145,7 +145,10 @@
       <workItem from="1670111979867" duration="118000" />
       <workItem from="1670113425767" duration="8829000" />
       <workItem from="1670125497307" duration="4602000" />
-      <workItem from="1670130109658" duration="979000" />
+      <workItem from="1670130109658" duration="1083000" />
+      <workItem from="1670131681956" duration="9000" />
+      <workItem from="1670131726243" duration="810000" />
+      <workItem from="1670132812920" duration="178000" />
     </task>
     <task id="LOCAL-00001" summary="manage git repo">
       <created>1669602204276</created>
@@ -224,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670129651694</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fix interface, fix data format">
+      <created>1670131166417</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1670131166417</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,12 +279,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/templates/visualizeSimilar.html</url>
-          <line>169</line>
+          <line>174</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/templates/visualizeSimilar.html</url>
-          <line>131</line>
+          <line>136</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
