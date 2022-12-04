@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     <style>
+      legend {
+        padding: 0 1rem;
+        font-size: 25px;
+      }
+
       path.link {
         fill: none;
         stroke: #666;
@@ -26,6 +31,7 @@
     <title>Similar Result</title>
   </head>
   <body>
+    <fieldset><legend id="legend1"></legend></fieldset>
     <script src="http://d3js.org/d3.v5.js"></script>
     <script>
       var center = "{{ center.countyName }}";
@@ -33,10 +39,9 @@
       var links = [];
       nodes[center] = {name:center}
       var hyperlinks = Object();
-
+      var legendt = document.getElementById("legend1")
+      legendt.innerText = "Counties Similar to " + center
       hyperlinks["{{ center.countyName }}"] = "{{ center.html }} ";
-      var ranking = {};
-
 
       {% for county, distance in resultDict.items %}
         { links.push({source:center, target:"{{ county.countyName }}", value:{{ distance }} }) }
@@ -61,7 +66,7 @@
           .alphaTarget(1)
           .on("tick", tick);
 
-      var svg = d3.select("body")
+      var svg = d3.select("fieldset")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
