@@ -92,3 +92,7 @@ def display(request):
     target = int(res['selectCounty'])
     county = countyList[target]
     return render(request, 'countyTemplate.html', {'county': county})
+
+
+def radar(request):
+    return render(request, "radar.html")
