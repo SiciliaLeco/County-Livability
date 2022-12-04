@@ -44,7 +44,7 @@
       nodes[center] = {name:center}
       var hyperlinks = Object();
       var legendt = document.getElementById("legend1")
-      legendt.innerText = "Counties Similar to " + center
+      legendt.innerText = center + "'s Similar Counties"
       hyperlinks["{{ center.countyName }}"] = "{{ center.html }}";
 
       {% for county, distance in resultDict.items %}
