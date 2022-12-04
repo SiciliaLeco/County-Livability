@@ -1,6 +1,7 @@
-# CSE6242 project
+CSE6242 project - group#38
 
-### Functions implemented 
+
+### Functions implemented
 #### 1. Display county information for queries
 
 #### 2. Find target counties by selecting specific attributes

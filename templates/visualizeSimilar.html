@@ -30,11 +30,12 @@
   <body>
     <script src="http://d3js.org/d3.v5.js"></script>
     <script>
-      var center = "{{ center }}";
+      var center = "{{ center.countyName }}";
       var nodes = {};
       var links = [];
       nodes[center] = {name:center}
       var hyperlinks = Object();
+      hyperlinks["{{ center.countyName }}"] = "{{ center.html }} ";
       var ranking = {};
 {#      {% for county, distance in resultDict.items %}#}
 {#      {% endfor %}#}
