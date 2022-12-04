@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <style>
+    <style>
+      path.link {
+        fill: none;
+        stroke: #666;
+        stroke-width: 1.5px;
+      }
 
-    path.link {
-      fill: none;
-      stroke: #666;
-      stroke-width: 1.5px;
-    }
-    
-    circle {
-      fill: #ccc;
-      stroke: #fff;
-      stroke: black;
-      stroke-width: 1.5px;
-    }
-    
-    text {
-      fill: #000;
-      font: 10px sans-serif;
-      pointer-events: none;
-      font-weight: 800;
-    }
-    
+      circle {
+        fill: #ccc;
+        stroke: #fff;
+        stroke: black;
+        stroke-width: 1.5px;
+      }
+
+      text {
+        fill: #000;
+        font: 15px sans-serif;
+        pointer-events: none;
+      }
     </style>
+
     <meta charset="UTF-8" />
     <title>Similar Result</title>
   </head>
@@ -35,20 +33,18 @@
       var links = [];
       nodes[center] = {name:center}
       var hyperlinks = Object();
-      var ranking = {};
-{#      {% for county, distance in resultDict.items %}#}
-{#      {% endfor %}#}
+      hyperlinks[center] = "{{ center.html }} "
+      console.log(center)
       {% for county, distance in resultDict.items %}
         { links.push({source:center, target:"{{ county.countyName }}", value:{{ distance }} }) }
         { hyperlinks["{{ county.countyName }}"] = "{{ county.html }} "}
-
       {% endfor %}
-
+      console.log(hyperlinks)
       links.forEach(function(link) {
         link.source = nodes[link.source] || (nodes[link.source] = {name: link.source})
         link.target = nodes[link.target] || (nodes[link.target] = {name: link.target})
       })
-      console.log(hyperlinks)
+
       var width = 1200,
           height = 700;
 
@@ -72,50 +68,60 @@
             .data(links)
             .enter()
             .append("path")
-            .attr("class", function(d) { return "link " + d.type; })
             .style('stroke', "green")
-            .style('stroke-width', "3px")
-            .style('stroke-dasharray', "2")
+            .style('stroke-width', "0px")
+            .attr("class", function(d) { return "link " + d.type; })
 
       var node = svg.selectAll(".node")
             .data(d3.values(nodes))
             .enter()
             .append("g")
             .attr("class", "node")
-            .attr("link", d=>hyperlinks[d.name])
           .on("dblclick", function (d) { window.open(hyperlinks[d.name]);})
-            .on("dbclick", releasenode)
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended))
 
-
       var colorScale = d3.scaleSequential()
-            .interpolator(d3.interpolateBlues)
-            .domain([0,10]);
+            .interpolator(d3.interpolateReds)
+            .domain([4,16]);
 
-
+      console.log(nodes)
       node.append("circle")
           .attr("id", function(d){
             return (d.name);
           })
-          .attr("r", d=> Math.log2(d.index + 1) * 5)
-          .style("fill", d =>colorScale(5 *0.8))
-        console.log(nodes)
+          .attr("r", function(d) {
+            if (d.name === center) {
+              return 40
+            } else {
+              return Math.log2(12 - d.index) * 8
+            }})
+
+          .style("stroke", function(d) {
+            if (d.name === center) {
+              return "black"
+            }
+          })
+          .style("fill", function(d) {
+            if (d.name === center) {
+              return '#bfbfbf'
+          } else {
+            return colorScale((12-d.index)*0.8+5)
+          }})
+
       node.append("text")
-          // .style("font-weight", "bold")
-          .text(d => d.name)//.attr("xlink:href", function(d){ return hyperlinks.get(d.name) })
-          // .style("pointer-events", "none")
+          .text(d => d.name)
           .attr("dx",30)
           .attr("dy",".35em")
+
 
       function tick() {
           path.attr("d", function(d) {
               var dx = d.target.x - d.source.x,
                   dy = d.target.y - d.source.y,
                   dr = Math.sqrt(dx * dx + dy * dy);
-                  // dv = d.value
               return "M" +
                   d.source.x + "," +
                   d.source.y + "A" +
@@ -127,45 +133,12 @@
 
           node.attr("transform", d => "translate(" + d.x + "," + d.y + ")" );
       };
-      // Add degree 
-      d3.selectAll('g.node')
-      .each(function(d) {
-          d.degree = 10;
-      });
-
-      // Calculate degree
-      links.forEach(function(d){
-          d.source.degree += 1;
-          d.target.degree += 1;
-      });
-
-      // Accessor functions to get min & max
-      var minDegree = d3.min(
-      d3.values(nodes), function(d) {
-          return d.degree; })
-
-      var maxDegree = d3.max(
-      d3.values(nodes), function(d) { 
-          return d.degree; })
-
-    // Create node scale based on value
-      var nodescale = d3.scaleSqrt()
-      .domain( [minDegree, maxDegree] )
-      .range( [0, 30] ); 
-      // Add the node circles
-      node.append("circle")
-          .attr("r", function(d) {
-          return nodescale(d.degree);
-          })
-    
 
       function dragstarted(d) {
           if (!d3.event.active) force.alphaTarget(0.3).restart();
           d.fx = d.x;
           d.fy = d.y;
           d3.select(this).classed("fixed",d.fixed = true)
-            .selectAll("circle")
-            .style("fill", "yellow");
       };
 
       function dragged(d) {
@@ -183,19 +156,8 @@
               d.fx = null;
               d.fy = null;
           }
-          d3.select(this)
-              .select("circle")
-              .style("fill", "#e34a33")
-      };
 
-      function releasenode(d) {
-        d.fx = null;
-        d.fy = null
-        d.fixed = false
-        d3.select(this)
-          .select("circle")
-          .style("fill", d => colorScale(d.weight))
-      }
+      };
     </script>
   </body>
 </html>
