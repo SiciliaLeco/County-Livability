@@ -8,6 +8,8 @@
       }
       fieldset {
         background: #eef0f1;
+        width: 800px;
+        height: 700px;
       }
       path.link {
         fill: none;
@@ -55,7 +57,7 @@
         link.target = nodes[link.target] || (nodes[link.target] = {name: link.target})
       })
 
-      var width = 1200,
+      var width = 800,
           height = 700;
 
       var force = d3.forceSimulation()
