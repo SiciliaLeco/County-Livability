@@ -44,25 +44,33 @@ def findSimilar(request):
     return render(request, "findSimilar.html", {'counties': counties})
 
 
+def format(str: str):
+    new_str = ""
+    for i in range(len(str)):
+        if str[i] <= "Z":
+            new_str += " "
+        new_str += str[i]
+    return new_str
+
+
 def getSimilarResult(request):
     res = request.GET
     print(res)
     attributes = []
     returnNumber = 10  # default
     print(res)
+    attrs = res.getlist("interest8")
     if res['returnNumber']:
         returnNumber = int(res['returnNumber'])
-    for k, v in res.items():
-        if k != "returnNumber" and k != "selectCounty":
-            attributes.append(v)
     target = int(res['selectCounty'])
-    res = clusterCounty(countyList, target, returnNumber, *attributes)
-    print(res)
+
+    res = clusterCounty(countyList, target, returnNumber, *attrs)
+    # print(res)
     resultDict = dict()
     for r in res:
         resultDict[r[0]] = r[1]
         # resultDict.append([r[0].countyName])
-    d = {'resultDict': resultDict, 'center': countyList[target]}
+    d = {'resultDict': resultDict, 'center': countyList[target], "attributes": format(" and ".join(attrs))}
     print(d)
     return render(request, "visualizeSimilar.html", d)
 
