@@ -66,7 +66,7 @@ def getSimilarResult(request):
     for r in res:
         resultDict[r[0]] = r[1]
         # resultDict.append([r[0].countyName])
-    d = {'resultDict': resultDict, 'center': countyList[target], "attributes": format(" and ".join(attrs))}
+    d = {'resultDict': resultDict, 'center': countyList[target], "attributes": format(" and ".join(attrs)).title()}
     print(d)
     return render(request, "visualizeSimilar.html", d)
 
