@@ -25,13 +25,9 @@ def getSortedResult(request):
     print(res)
     if res['returnNumber']:
         returnNumber = int(res['returnNumber'])
-    attributes = []
-    for k, v in res.items():
-        if k != "returnNumber":
-            attributes.append(v)
-    print(returnNumber)
+    attrs = res.getlist("interest8")
 
-    topKCounties = sortCounty(countyList, returnNumber, *attributes)
+    topKCounties = sortCounty(countyList, returnNumber, *attrs)
     return render(request, "filter.html", {'counties': topKCounties})
 
 
