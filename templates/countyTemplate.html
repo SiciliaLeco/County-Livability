@@ -5,7 +5,7 @@
     <title>{{ county.countyName }}</title>
     <style>
       legend {
-        padding: 20px 0;
+        padding: 0 1rem;
         font-size: 25px;
       }
       fieldset {
@@ -29,30 +29,42 @@
   <body>
     <fieldset>
       <legend>{{ county.countyName }}, {{ county.state }}</legend>
-
-      <b>Crime Rate (per 100000):</b> {{ county.crime_rate }}
-      <br />
-      <b>Population:</b> {{ county.population }}
-      <br />
-      <b>Live Expectancy:</b> {{ county.lifeExpectancy }}
-      <br />
-      <b>Average Income:</b> {{ county.averageIncome }}
-      <br />
-      <b>Poverty Rate:</b> {{ county.povertyRate }}
-      <br />
-      <b>Unemployment Rate:</b> {{ county.unemploymentRate }}
-      <br />
-      <b>Living Wage:</b> {{ county.livingWage }}
-      <br />
-      <b>Food Cost: </b>{{ county.foodCost }}
-      <br />
-      <b>Medical Cost:</b> {{ county.medicalCost }}
-      <br />
-      <b>Housing Cost:</b> {{ county.housingCost }}
-      <br />
-      <b>Tax Cost:</b> {{ county.taxCost }}
-      <br />
-      <b>Temperature:</b>
+      <div>
+        <label><b>Crime Rate (per 100000):</b> {{ county.crimeRate }}</label>
+      </div>
+      <div>
+        <label><b>Population:</b> {{ county.population }}</label>
+      </div>
+      <div>
+        <label><b>Live Expectancy:</b> {{ county.lifeExpectancy }}</label>
+      </div>
+      <div>
+        <label><b>Average Income:</b> {{ county.averageIncome }}</label>
+      </div>
+      <div>
+        <label><b>Poverty Rate:</b> {{ county.povertyRate }}</label>
+      </div>
+      <div>
+        <label><b>Unemployment Rate:</b> {{ county.unemploymentRate }}</label>
+      </div>
+      <div>
+        <label><b>Living Wage:</b> {{ county.livingWage }}</label>
+      </div>
+      <div>
+        <label><b>Food Cost: </b>{{ county.foodCost }}</label>
+      </div>
+      <div>
+        <label><b>Medical Cost:</b> {{ county.medicalCost }}</label>
+      </div>
+      <div>
+        <label><b>Housing Cost:</b> {{ county.housingCost }}</label>
+      </div>
+      <div>
+        <label><b>Tax Cost:</b> {{ county.taxCost }}</label>
+      </div>
+      <div>
+        <label><b>Temperature:</b></label>
+      </div>
 
       <table border="1">
         <tr>
