@@ -28,18 +28,21 @@
   <body>
     <script src="http://d3js.org/d3.v5.js"></script>
     <script>
-      var center = "{{ center }}";
+      var center = "{{ center.countyName }}";
       var nodes = {};
       var links = [];
       nodes[center] = {name:center}
       var hyperlinks = Object();
-      hyperlinks[center] = "{{ center.html }} "
-      console.log(center)
+
+      hyperlinks["{{ center.countyName }}"] = "{{ center.html }} ";
+      var ranking = {};
+
+
       {% for county, distance in resultDict.items %}
         { links.push({source:center, target:"{{ county.countyName }}", value:{{ distance }} }) }
         { hyperlinks["{{ county.countyName }}"] = "{{ county.html }} "}
       {% endfor %}
-      console.log(hyperlinks)
+
       links.forEach(function(link) {
         link.source = nodes[link.source] || (nodes[link.source] = {name: link.source})
         link.target = nodes[link.target] || (nodes[link.target] = {name: link.target})
@@ -87,7 +90,6 @@
             .interpolator(d3.interpolateReds)
             .domain([4,16]);
 
-      console.log(nodes)
       node.append("circle")
           .attr("id", function(d){
             return (d.name);
@@ -156,7 +158,6 @@
               d.fx = null;
               d.fy = null;
           }
-
       };
     </script>
   </body>
