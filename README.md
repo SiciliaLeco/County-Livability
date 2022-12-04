@@ -1,6 +1,5 @@
 ## CSE6242 project - group#38
 
----
 ### 1. DESCRIPTION
 This is the package of group 38's work. Our project is a website that can help you with finding counties that satisfy your need.
 You can find basic information of any county in the U.S. If you already have an IDEAL county, our program can find
