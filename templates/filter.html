@@ -4,6 +4,40 @@
     <meta charset="UTF-8" />
     <title>County Filter</title>
     <style>
+      a:link,
+      a:visited {
+        background-color: rgb(76, 174, 135);
+        border: 1px solid rgb(76, 174, 135);
+        /* color: black; */
+        border-radius: 2px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
+        color: #fff;
+        cursor: pointer;
+        height: 20px;
+        font-size: 16px;
+        font-weight: 400;
+        outline: none;
+        outline: 0;
+        text-align: center;
+        transform: translateY(0);
+        transition: transform 150ms, box-shadow 150ms;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        margin-bottom: 10px;
+      }
+
+      a:hover,
+      a:active {
+        background-color: rgb(34, 147, 147);
+        color: white;
+        transform: translateY(-2px);
+      }
+
       legend {
         padding: 0 1rem;
         font-size: 25px;
@@ -423,7 +457,8 @@
         </td>
         <td>
           <fieldset>
-            <label>Filter</label> {% for countyName, index in counties.items %}
+            <legend>Filter Result</legend>
+            {% for countyName, index in counties.items %}
             <br />
             <a href="/searchResult/?selectCounty={{ index }}">
               {{ countyName }}
