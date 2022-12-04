@@ -8,7 +8,7 @@ import scipy.stats as st
 from sklearn.preprocessing import normalize
 
 class county(object):
-    def __init__(self, info: dict):
+    def __init__(self, info: dict, index: int):
         """
         county_name	State	county formatted	crime_rate_per_100000	PCTPOVALL_2020	diversity index	noaa/temp-jan	noaa/temp-apr	noaa/temp-jul	noaa/temp-oct	edu/some-college	bls/2020/unemployed	life-expectancy	population/2019	avg_income	poverty-rate	Unemployment_rate	cost-of-living/living_wage	cost-of-living/food_costs	cost-of-living/medical_costs	cost-of-living/housing_costs	cost-of-living/tax_costs
         """
@@ -31,6 +31,7 @@ class county(object):
         self.medicalCost = info['cost-of-living/medical_costs']
         self.housingCost = info['cost-of-living/housing_costs']
         self.taxCost = info['cost-of-living/housing_costs']
+        self.html = "/searchResult/?selectCounty={}".format(str(index))
 
     def __str__(self):
         return self.countyName
@@ -82,10 +83,12 @@ def readFile(path: str = "DATA/dataset_livability.csv") -> List[county]:
     :return:
     """
     countyList = []
+    index = 0
     with open(path, 'r') as f:
         reader = csv.DictReader(f)
         for line in reader:
-            countyList.append(county(line))
+            countyList.append(county(line, index))
+            index += 1
     return countyList
 
 

@@ -60,7 +60,7 @@ def getSimilarResult(request):
     print(res)
     resultDict = dict()
     for r in res:
-        resultDict[r[0].countyName] = r[1]
+        resultDict[r[0]] = r[1]
         # resultDict.append([r[0].countyName])
     d = {'resultDict': resultDict, 'center': countyList[target].countyName}
     print(d)

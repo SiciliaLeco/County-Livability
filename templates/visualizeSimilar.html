@@ -34,16 +34,21 @@
       var nodes = {};
       var links = [];
       nodes[center] = {name:center}
-
+      var hyperlinks = Object();
+      var ranking = {};
+{#      {% for county, distance in resultDict.items %}#}
+{#      {% endfor %}#}
       {% for county, distance in resultDict.items %}
-        { links.push({source:center, target:"{{ county }}", value:{{ distance }} }) }
+        { links.push({source:center, target:"{{ county.countyName }}", value:{{ distance }} }) }
+        { hyperlinks["{{ county.countyName }}"] = "{{ county.html }} "}
+
       {% endfor %}
 
       links.forEach(function(link) {
         link.source = nodes[link.source] || (nodes[link.source] = {name: link.source})
         link.target = nodes[link.target] || (nodes[link.target] = {name: link.target})
       })
-      console.log(links)
+      console.log(hyperlinks)
       var width = 1200,
           height = 700;
 
@@ -77,12 +82,14 @@
             .enter()
             .append("g")
             .attr("class", "node")
-            .on("dblclick", releasenode)
+            .attr("link", d=>hyperlinks[d.name])
+          .on("dblclick", function (d) { window.open(hyperlinks[d.name]);})
+            .on("dbclick", releasenode)
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended))
-               
+
 
       var colorScale = d3.scaleSequential()
             .interpolator(d3.interpolateBlues)
@@ -93,12 +100,12 @@
           .attr("id", function(d){
             return (d.name);
           })
-          .attr("r", 15)
+          .attr("r", d=> Math.log2(d.index + 1) * 5)
           .style("fill", d =>colorScale(5 *0.8))
-
+        console.log(nodes)
       node.append("text")
           // .style("font-weight", "bold")
-          .text(d => d.name)
+          .text(d => d.name)//.attr("xlink:href", function(d){ return hyperlinks.get(d.name) })
           // .style("pointer-events", "none")
           .attr("dx",30)
           .attr("dy",".35em")
