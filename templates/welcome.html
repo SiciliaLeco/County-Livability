@@ -4,6 +4,20 @@
     <meta charset="UTF-8" />
     <title>Welcome to CSE6242 group#38's homepage!</title>
     <style>
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      a:hover {
+        color: rgb(5, 0, 0);
+        background-color: rgb(221, 166, 38);
+      }
+      a:visited {
+        background-color: yellow;
+      }
+      a:active {
+        background-color: darkblue;
+      }
       button {
         background-color: rgb(76, 174, 135);
         border: 1px solid rgb(76, 174, 135);
@@ -66,7 +80,24 @@
       select:focus {
         border-color: rgb(76, 174, 135);
       }
+      legend {
+        padding: 0 1rem;
+        font-size: 25px;
+      }
+      div {
+        margin-bottom: 10px;
+      }
 
+      fieldset {
+        background: #eef0f1;
+        margin-bottom: 30px;
+
+        max-width: 500px;
+        padding: 16px;
+
+        margin-bottom: 0px;
+        margin-left: 16px;
+      }
       body {
         font-family: "Akzidenz Grotesk BQ Medium", -apple-system,
           BlinkMacSystemFont, sans-serif;
@@ -83,25 +114,27 @@
   </head>
   <body>
     <form method="get" action="{% url 'searchCounty' %}">
-      <h1>Welcome!</h1>
-      <div>
-        <label class="prompt">Choose a base county:</label>
+      <fieldset>
+        <h1>U.S. Livability Visualizer</h1>
+        <div>
+          <label class="prompt">Choose a base county:</label>
 
-        <select name="selectCounty">
-          {% for k, v in counties.items %}
-          <option value="{{ v }}">{{ k }}</option>
-          {% endfor %}
-        </select>
-        <button class="button" type="submit">Search</button>
-      </div>
+          <select name="selectCounty">
+            {% for k, v in counties.items %}
+            <option value="{{ v }}">{{ k }}</option>
+            {% endfor %}
+          </select>
+          <button class="button" type="submit">Search</button>
+        </div>
+        <br />
+        Other functions:
+        <br />
+        · <a href="/similar"> Similar Counties </a>
+        <br />
+        · <a href="/similar"> Radar Plot </a>
+        <br />
+        · <a href="/filter"> Filter Counties </a>
+      </fieldset>
     </form>
-    <br />
-    Other functions:
-    <br />
-    · <a href="/similar"> Find similar counties by clustering algorithm </a>
-    <br />
-    · <a href="/similar"> Radar Plot (Hubert & William) </a>
-    <br />
-    · <a href="/filter"> Filter Tools </a>
   </body>
 </html>

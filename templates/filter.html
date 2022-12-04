@@ -5,7 +5,7 @@
     <title>County Filter</title>
     <style>
       legend {
-        padding: 20px 0;
+        padding: 0 1rem;
         font-size: 25px;
       }
       div {
@@ -14,7 +14,15 @@
 
       fieldset {
         background: #eef0f1;
+        margin-bottom: 30px;
+
+        max-width: 500px;
+        padding: 16px;
+
+        margin-bottom: 0px;
+        margin-left: 16px;
       }
+
       body {
         font-family: "Akzidenz Grotesk BQ Medium", -apple-system,
           BlinkMacSystemFont, sans-serif;
@@ -182,238 +190,249 @@
   </head>
   <body>
     <form method="get" action="{%  url 'getReport' %}">
-      <fieldset>
-        <legend>Filter Counties</legend>
-        <p class="prompt">Please select the attribute you concern.</p>
+      <table>
+        <td>
+          <fieldset>
+            <legend>Filter Counties</legend>
+            <p class="prompt">Please select the attribute you concern.</p>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="crime_rate"
-            type="checkbox"
-            name="interest8"
-            value="crime_rate"
-          />
-          <label class="cbx" for="crime_rate"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Crime Rate</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="crime_rate"
+                type="checkbox"
+                name="interest8"
+                value="crime_rate"
+              />
+              <label class="cbx" for="crime_rate"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Crime Rate</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="population"
-            type="checkbox"
-            name="interest8"
-            value="population"
-          />
-          <label class="cbx" for="population"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Population</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="population"
+                type="checkbox"
+                name="interest8"
+                value="population"
+              />
+              <label class="cbx" for="population"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Population</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="averageIncome"
-            type="checkbox"
-            name="interest8"
-            value="averageIncome"
-          />
-          <label class="cbx" for="averageIncome"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Average Income</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="averageIncome"
+                type="checkbox"
+                name="interest8"
+                value="averageIncome"
+              />
+              <label class="cbx" for="averageIncome"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Average Income</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="povertyRate"
-            type="checkbox"
-            name="interest8"
-            value="povertyRate"
-          />
-          <label class="cbx" for="povertyRate"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Poverty Rate</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="povertyRate"
+                type="checkbox"
+                name="interest8"
+                value="povertyRate"
+              />
+              <label class="cbx" for="povertyRate"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Poverty Rate</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="unemploymentRate"
-            type="checkbox"
-            name="interest8"
-            value="unemploymentRate"
-          />
-          <label class="cbx" for="unemploymentRate"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Unemployment Rate</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="unemploymentRate"
+                type="checkbox"
+                name="interest8"
+                value="unemploymentRate"
+              />
+              <label class="cbx" for="unemploymentRate"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Unemployment Rate</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="livingWage"
-            type="checkbox"
-            name="interest8"
-            value="livingWage"
-          />
-          <label class="cbx" for="livingWage"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Living Wage</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="livingWage"
+                type="checkbox"
+                name="interest8"
+                value="livingWage"
+              />
+              <label class="cbx" for="livingWage"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Living Wage</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="foodCost"
-            type="checkbox"
-            name="interest8"
-            value="foodCost"
-          />
-          <label class="cbx" for="foodCost"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Food Cost</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="foodCost"
+                type="checkbox"
+                name="interest8"
+                value="foodCost"
+              />
+              <label class="cbx" for="foodCost"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Food Cost</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="medicalCost"
-            type="checkbox"
-            name="interest8"
-            value="medicalCost"
-          />
-          <label class="cbx" for="medicalCost"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Medical Cost</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="medicalCost"
+                type="checkbox"
+                name="interest8"
+                value="medicalCost"
+              />
+              <label class="cbx" for="medicalCost"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Medical Cost</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="housingCost"
-            type="checkbox"
-            name="interest8"
-            value="housingCost"
-          />
-          <label class="cbx" for="housingCost"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Housing Cost</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="housingCost"
+                type="checkbox"
+                name="interest8"
+                value="housingCost"
+              />
+              <label class="cbx" for="housingCost"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Housing Cost</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
 
-        <div class="wrapper">
-          <input
-            class="inp-cbx"
-            id="taxCost"
-            type="checkbox"
-            name="interest8"
-            value="taxCost"
-          />
-          <label class="cbx" for="taxCost"
-            ><span>
-              <svg width="12px" height="10px">
-                <use xlink:href="#check-4"></use></svg></span
-            ><span>Tax Cost</span></label
-          >
-          <svg class="inline-svg">
-            <symbol id="check-4" viewbox="0 0 12 10">
-              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-          </svg>
-        </div>
-        <div>
-          <label class="prompt">How many counties do you wish to return?</label>
-          <input
-            type="text"
-            id="returnNumber"
-            name="returnNumber"
-            placeholder="default 10"
-          />
-        </div>
-        <div>
-          <button type="submit">Filter</button>
-        </div>
-      </fieldset>
+            <div class="wrapper">
+              <input
+                class="inp-cbx"
+                id="taxCost"
+                type="checkbox"
+                name="interest8"
+                value="taxCost"
+              />
+              <label class="cbx" for="taxCost"
+                ><span>
+                  <svg width="12px" height="10px">
+                    <use xlink:href="#check-4"></use></svg></span
+                ><span>Tax Cost</span></label
+              >
+              <svg class="inline-svg">
+                <symbol id="check-4" viewbox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </symbol>
+              </svg>
+            </div>
+            <div>
+              <label class="prompt"
+                >How many counties do you wish to return?</label
+              >
+              <input
+                type="text"
+                id="returnNumber"
+                name="returnNumber"
+                placeholder="default 10"
+              />
+            </div>
+            <div>
+              <button type="submit">Filter</button>
+            </div>
+          </fieldset>
+        </td>
+        <td>
+          <fieldset>
+            <label>Filter</label> {% for countyName, index in counties.items %}
+            <br />
+            <a href="/searchResult/?selectCounty={{ index }}">
+              {{ countyName }}
+            </a>
+
+            {% endfor %}
+          </fieldset>
+        </td>
+      </table>
     </form>
-
-    Found relevant counties: {% for countyName, index in counties.items %}
-    <br />
-    <a href="/searchResult/?selectCounty={{ index }}"> {{ countyName }} </a>
-
-    {% endfor %}
   </body>
 </html>

@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>{{ county.countyName }}</title>
-</head>
-<body>
-County Name: {{ county.countyName }}
-<br>
-State: {{ county.state }}
-<br>
-Crime Rate (per 100000): {{ county.crime_rate }}
-<br>
-Population: {{ county.population }}
-<br>
-Live Expectancy: {{ county.lifeExpectancy }}
-<br>
-Average InCome: {{ county.averageIncome }}
-<br>
-Poverty Rate: {{ county.povertyRate }}
-<br>
-Unemployment Rate: {{ county.unemploymentRate }}
-<br>
-Living Wage: {{ county.livingWage }}
-<br>
-Food Cost: {{ county.foodCost }}
-<br>
-Medical Cost: {{ county.medicalCost }}
-<br>
-Housing Cost: {{ county.housingCost }}
-<br>
-Tax Cost: {{ county.taxCost }}
-<br>
-Temperature:
-<table border="1">
-<tr>
-<td>Spring, Summer, Autumn, Winter</td>
-</tr>
-<tr>
-    <td>{{ county.springTemperature }}, {{ county.summerTemperature }}, {{ county.autumnTemperature }}, {{ county.winterTemperature }}</td>
-</tr>
-</table>
+    <style>
+      legend {
+        padding: 20px 0;
+        font-size: 25px;
+      }
+      fieldset {
+        background: #eef0f1;
+      }
+      body {
+        font-family: "Akzidenz Grotesk BQ Medium", -apple-system,
+          BlinkMacSystemFont, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <fieldset>
+      <legend>{{ county.countyName }}, {{ county.state }}</legend>
 
+      <b>Crime Rate (per 100000):</b> {{ county.crime_rate }}
+      <br />
+      <b>Population:</b> {{ county.population }}
+      <br />
+      <b>Live Expectancy:</b> {{ county.lifeExpectancy }}
+      <br />
+      <b>Average Income:</b> {{ county.averageIncome }}
+      <br />
+      <b>Poverty Rate:</b> {{ county.povertyRate }}
+      <br />
+      <b>Unemployment Rate:</b> {{ county.unemploymentRate }}
+      <br />
+      <b>Living Wage:</b> {{ county.livingWage }}
+      <br />
+      <b>Food Cost: </b>{{ county.foodCost }}
+      <br />
+      <b>Medical Cost:</b> {{ county.medicalCost }}
+      <br />
+      <b>Housing Cost:</b> {{ county.housingCost }}
+      <br />
+      <b>Tax Cost:</b> {{ county.taxCost }}
+      <br />
+      <b>Temperature:</b>
 
-</body>
+      <table border="1">
+        <tr>
+          <td>Spring, Summer, Autumn, Winter</td>
+        </tr>
+        <tr>
+          <td>
+            {{ county.springTemperature }}, {{ county.summerTemperature }},
+            {{county.autumnTemperature }}, {{ county.winterTemperature }}
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+  </body>
 </html>
