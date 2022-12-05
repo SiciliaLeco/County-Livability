@@ -19,3 +19,5 @@ python manage.py runserver
 ```
 After executing this code, open your browser and key in http://localhost:8000/welcome/, then you can browse everything about our project!
 
+4. DEMO VIDEO
+For the detail usage, please check this one minute video: https://youtu.be/Tjqhl09ETmo
